@@ -93,6 +93,7 @@ def app_login(request):
             return JsonResponse({'code': '1001', 'msg': '로그인실패입니다.'}, status=200)
 
 
+# 챗봇
 @csrf_exempt
 def chat_service(request):
     if request.method == 'POST':
