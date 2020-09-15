@@ -11,7 +11,7 @@ from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 import json
-# from .faq_chatbot import faq_answer, faq_search
+from .faq_chatbot import faq_answer
 
 
 # 주소록 전체를 조회하거나 신규 주소를 생성
@@ -74,41 +74,32 @@ def login(request):
     return render(request, 'addresses/login.html')
 
 
-# @csrf_exempt
-# def app_login(request):
-#
-#     if request.method == 'POST':
-#         print("리퀘스트 로그" + str(request.body))
-#         id = request.POST.get('userid', '')
-#         pw = request.POST.get('userpw', '')
-#         print("id = " + id + " pw = " + pw)
-#
-#         result = authenticate(username=id, password=pw)
-#
-#         if result:
-#             print("로그인 성공!")
-#             return JsonResponse({'code': '0000', 'msg': '로그인성공입니다.'}, status=200)
-#         else:
-#             print("실패")
-#             return JsonResponse({'code': '1001', 'msg': '로그인실패입니다.'}, status=200)
+@csrf_exempt
+def app_login(request):
+
+    if request.method == 'POST':
+        print("리퀘스트 로그" + str(request.body))
+        id = request.POST.get('userid', '')
+        pw = request.POST.get('userpw', '')
+        print("id = " + id + " pw = " + pw)
+
+        result = authenticate(username=id, password=pw)
+
+        if result:
+            print("로그인 성공!")
+            return JsonResponse({'code': '0000', 'msg': '로그인성공입니다.'}, status=200)
+        else:
+            print("실패")
+            return JsonResponse({'code': '1001', 'msg': '로그인실패입니다.'}, status=200)
 
 
-# @csrf_exempt
-# def chat_service(request):
-#     if request.method == 'POST':
-#         input1 = request.POST['input1']
-#         response = faq_answer(input1)  # 대답
-#         output = dict()
-#         output['response'] = "이건 응답"p
-#         return HttpResponse(json.dumps(response), status=200)
-#     else:
-#         return render(request, 'addresses/chat_test.html')
-#
-#
-# @csrf_exempt
-# def search_keywords(request):
-#     if request.method == 'POST':
-#         input1 = request.POST['input1']
-#         response = faq_search(input1)
-#
-#         return HttpResponse(json.dumps(response), status=200)
+@csrf_exempt
+def chat_service(request):
+    if request.method == 'POST':
+        input1 = request.POST['input1']
+        response = faq_answer(input1)
+        output = dict()
+        output['response'] = response
+        return HttpResponse(json.dumps(output), status=200)
+    else:
+        return render(request, 'addresses/chat_test.html')
