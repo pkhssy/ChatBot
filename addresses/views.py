@@ -53,23 +53,24 @@ def address(request, pk):
         return HttpResponse(status=204)
 
 
+
 @csrf_exempt
 def login(request):
-
     if request.method == 'POST':
         print("리퀘스트 로그" + str(request.body))
-        id = request.POST.get('userid','')
+        id = request.POST.get('userid', '')
         pw = request.POST.get('userpw', '')
         print("id = " + id + " pw = " + pw)
 
         result = authenticate(username=id, password=pw)
 
-        if result :
+        if result:
             print("로그인 성공!")
             return HttpResponse(status=200)
         else:
             print("실패")
             return HttpResponse(status=401)
+
 
     return render(request, 'addresses/login.html')
 
@@ -97,10 +98,10 @@ def app_login(request):
 @csrf_exempt
 def chat_service(request):
     if request.method == 'POST':
-        input1 = request.POST['input1']
+        input1 = request.POST.get('input1', '')
         response = faq_answer(input1)
         output = dict()
         output['response'] = response
         return HttpResponse(json.dumps(output), status=200)
     else:
-        return render(request, 'addresses/chat_test.html')
+        return render(request, 'addresses/chat_test.html')  # 화면에 chat_test.html 표기

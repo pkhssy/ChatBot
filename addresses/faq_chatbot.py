@@ -4,6 +4,8 @@ from gensim.models import doc2vec
 from gensim.models.doc2vec import TaggedDocument
 import pandas as pd
 
+import jpype
+
 #형태소 분석
 import jpype
 from konlpy.tag import Kkma
@@ -97,8 +99,9 @@ def faq_answer(input):
 
     for i in range(topn):
         print("{}위. {}, {} {} {}".format(i + 1, result[i][1], result[i][0], faqs['Q'][result[i][0]], faqs['A'][result[i][0]]))
-
+    print(input)
     return faqs['A'][result[0][0]]
 
 
-faq_answer("프로젝트 만들어줘")
+#
+faq_answer("프로젝트는 어떻게 만드는거야?")
