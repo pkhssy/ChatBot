@@ -1,12 +1,12 @@
 import os
 import warnings
-from gensim.models import doc2vec
+from gensim.models import doc2vec, Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 import pandas as pd
 
 import jpype
 
-#형태소 분석
+# 형태소 분석
 import jpype
 from konlpy.tag import Kkma
 
@@ -25,7 +25,7 @@ def tokenize_kkma_noun(doc):
 
 # 파일로부터 모델을 읽는다. 없으면 생성한다.
 try:
-    d2v_faqs = doc2vec.Doc2Vec.load.load('d2v_faqs_size100_min1_batch50_epoch50_nounonly_dm0')  # 모델 load
+    d2v_faqs = Doc2Vec.load.load('d2v_faqs_size100_min1_batch50_epoch50_nounonly_dm0')  # 모델 load
     df_faqs = pd.read_csv('챗봇데이터.csv', encoding='CP949')  # 파일 읽기
     # 순번, 질문, 답 순서의 데이터
     # 빈 DataFrame 생성
@@ -72,7 +72,7 @@ except:
         dm=0,  # 0:PV-DBOW(하나를 갖고 여러개 추측), 1:PV-DM(여러개를 갖고 하나를 추측)
         # window=3,
         dbow_words=1,
-        min_count=1,  # 단어의 수가 min_count보다 작으면 사용하지 않음
+        min_count=1,  # 단어의 수가 min_count 보다 작으면 사용하지 않음
         workers=cores,
         seed=0,
         pochs=100
@@ -98,10 +98,7 @@ def faq_answer(input):
     print(result)
 
     for i in range(topn):
-        print("{}위. {}, {} {} {}".format(i + 1, result[i][1], result[i][0], faqs['Q'][result[i][0]], faqs['A'][result[i][0]]))
-    print(input)
+        print("{}위. {}, {} {} → {}".format(i + 1, result[i][1], result[i][0], faqs['Q'][result[i][0]], faqs['A'][result[i][0]]))
+    print(input, "→", faqs['A'][result[0][0]])
+
     return faqs['A'][result[0][0]]
-
-
-#
-faq_answer("프로젝트는 어떻게 만드는거야?")

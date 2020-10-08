@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -43,12 +43,12 @@
         $("#divbox").scrollTop($("#divbox")[0].scrollHeight);
         console.log("serial"+$('form').serialize())
         $.ajax({
-            url:  'http://127.0.0.1:8000/chat_service/',
-            type: 'post',
-            dataType: 'json',
-            data: $('form').serialize(),
+            url:  'http://127.0.0.1:8000/chat_service/',  // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            type: 'post',  // HTTP 리퀘스트 타입
+            dataType: 'json',  // 서버에서 보내줄 데이터의 타입
+            data: $('form').serialize(), // HTTP 요청과 함께 서버로 보낼 데이터
             success: function(data) {
-                <!--$('#reponse').html(data.reponse);-->
+                $('#response').html(data.response);
                 $('#divbox').append('<div class="msg_box receive"><span>'+ data.response +'<span></div>');
                 $("#divbox").scrollTop($("#divbox")[0].scrollHeight);
             }

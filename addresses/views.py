@@ -20,12 +20,12 @@ def address_list(request):  # request - 호출
     if request.method == 'GET':  # GET : 전체조회
         query_set = Addresses.objects.all()  # 모든 객체를 다 읽어온다
         serializer = AddressesSerializer(query_set, many=True)  # 읽어온 객체를 serializer 에 넣어서 json 형태로 반환
-        return JsonResponse(serializer.data, safe=False)  # return은 항상 Response 형태여야 한다.
+        return JsonResponse(serializer.data, safe=False)  # return 은 항상 Response 형태여야 한다.
 
     elif request.method == 'POST':  # POST : 신규생성
-        data = JSONParser().parse(request)  # JSONParser를 통해 request를 읽어옴 → 만들어야하는 객체 데이터가 JSON 형태이기 때문
-        serializer = AddressesSerializer(data=data)  # 파싱한 데이터를 serializer에 넣는다
-        if serializer.is_valid():  # serializer에서 선언했던 모델, 필드와 비교해서 일치한다
+        data = JSONParser().parse(request)  # JSONParser 를 통해 request 를 읽어옴 → 만들어야하는 객체 데이터가 JSON 형태이기 때문
+        serializer = AddressesSerializer(data=data)  # 파싱한 데이터를 serializer 에 넣는다
+        if serializer.is_valid():  # serializer 에서 선언했던 모델, 필드와 비교해서 일치한다
             serializer.save()  # save()를 통해 객체 생성
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
@@ -71,7 +71,6 @@ def login(request):
             print("실패")
             return HttpResponse(status=401)
 
-
     return render(request, 'addresses/login.html')
 
 
@@ -98,7 +97,8 @@ def app_login(request):
 @csrf_exempt
 def chat_service(request):
     if request.method == 'POST':
-        input1 = request.POST.get('input1', '')
+        #input1 = request.POST.get('input1')
+        input1 = request.POST['input1']
         response = faq_answer(input1)
         output = dict()
         output['response'] = response
