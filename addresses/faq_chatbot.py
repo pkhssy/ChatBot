@@ -64,15 +64,15 @@ except:
     import multiprocessing
     cores = multiprocessing.cpu_count()  # cpu 사용 개수
     d2v_faqs = doc2vec.Doc2Vec(
-        vector_size=100,  # 몇차원까지 벡터화 시킬 것인가
-        # alpha=0.025,
+        vector_size=100,  # 임베딩 벡터의 크기 - 몇차원까지 벡터화 시킬 것인가
+        # alpha=0.025,  # learning rate
         # min_alpha=0.025,
         hs=1,
-        negative=0,
+        negative=0,  # negative sample의 개수
         dm=0,  # 0:PV-DBOW(하나를 갖고 여러개 추측), 1:PV-DM(여러개를 갖고 하나를 추측)
-        # window=3,
+        # window=3,  # 훈련시 앞 뒤로 고려하는 단어의 개수
         dbow_words=1,
-        min_count=1,  # 단어의 수가 min_count 보다 작으면 사용하지 않음
+        min_count=1,  # 데이터에서 등장하는 단어의 최소빈도수 - 단어의 수가 min_count 보다 작으면 사용하지 않음
         workers=cores,
         seed=0,
         pochs=100
