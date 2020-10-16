@@ -6,22 +6,22 @@
     <title>DOUZONE 챗봇</title>
 </head>
 <style>
-.chat_wrap {display:none;width: 350px;height: 500px;position: fixed;bottom: 30px;right: 95px;background: #a9bdce;}
-.chat_content {height: 600px;width: 500px;overflow-y:scroll;padding:10px 15px;background: cornflowerblue}
+.chat_wrap {display:none;width: 350px;height: 500px;position: fixed;bottom: 30px;right: 95px;backgzround: #aec6d8;}
+.chat_content {height: 600px;width: 500px;overflow-y:scroll;padding:10px 15px;background: #aec6d8}
 .chat_input {padding:2px 5px;}
 .chat_header {padding: 10px 15px;border-bottom: 1px solid #95a6b4;}
 .chat_header .close_btn {border: none;background: none;float: right;}
-.send_btn {;border: 1px solid #666;background: #ffeb33;height: 28px;color: #0a0a0a;}
+.send_btn {;border: 1px solid #666;background: #f2ce6f;height: 28px;color: #0a0a0a;}
 .msg_box:after {content: '';display: block;clear:both;}
 
 .msg_box > span {padding: 3px 5px;word-break: break-all;display: block;max-width: 300px;margin-bottom: 10px;border-radius: 4px}
-.msg_box.send > span {background:#ffeb33;float: right;}
+.msg_box.send > span {background:#ecd28f;float: right;}
 .msg_box.receive > span {background:#fff;float: left;}
 </style>
 <body>
 <div class="chat_header">
     <span>FAQ 챗봇</span>
-    <button type="button" id="close_chat_btn" class="close_btn">X</button>
+    <!--<button type="button" id="close_chat_btn" class="close_btn">X</button>-->
 </div>
 <div id="divbox" class="chat_content"></div>
 <form id="form" style="display: inline">
