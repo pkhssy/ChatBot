@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 import json
 from .faq_chatbot import faq_answer
+import webbrowser
 
 
 # 주소록 전체를 조회하거나 신규 주소를 생성
@@ -97,11 +98,22 @@ def app_login(request):
 @csrf_exempt
 def chat_service(request):
     if request.method == 'POST':
-        #input1 = request.POST.get('input1')
         input1 = request.POST['input1']
         response = faq_answer(input1)
         output = dict()
-        output['response'] = response
+        if response == "설명서":
+            #output['response'] = webbrowser.open_new_tab("http://dbs.douzone.com/docs/FD/Document")  # DEWS 온라인 설명서 실행
+            output['response'] = webbrowser.open_new_tab("file:///C:/Users/user/PycharmProjects/restfulapiserver/HelpDocument.pdf")  # DEWS FD pdf 설명서 실행
+        elif 'page' in response:
+            response = response[5:]
+            urls = "file:///C:/Users/user/PycharmProjects/restfulapiserver/HelpDocument.pdf#page="
+            urls += response
+            urls += "&pagemode=bookmarks&zoom=100"
+            print(urls)
+            output['response'] = webbrowser.open_new_tab(urls)
+        else:
+            output['response'] = response
+
         return HttpResponse(json.dumps(output), status=200)
     else:
         return render(request, 'addresses/chat_test.html')  # 화면에 chat_test.html 표기

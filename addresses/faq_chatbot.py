@@ -60,8 +60,8 @@ except:
     cores = multiprocessing.cpu_count()  # cpu 사용 개수
     d2v_faqs = doc2vec.Doc2Vec(
         vector_size=100,  # 임베딩 벡터의 크기 - 몇차원까지 벡터화 시킬 것인가
-        # alpha=0.025,  # learning rate
-        # min_alpha=0.025,  # min learning rate
+        alpha=0.025,  # learning rate
+        min_alpha=0.025,  # min learning rate
         hs=1,  # hierarchical softmax
         negative=0,  # negative sample의 개수
         dm=0,  # 0:PV-DBOW(하나를 갖고 여러개 추측), 1:PV-DM(여러개를 갖고 하나를 추측)
