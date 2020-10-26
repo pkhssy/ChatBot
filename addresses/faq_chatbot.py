@@ -94,6 +94,11 @@ def faq_answer(input):
 
     for i in range(topn):
         print("{}위. {}, {} {} → {}".format(i + 1, result[i][1], result[i][0], faqs['Q'][result[i][0]], faqs['A'][result[i][0]]))
-    print(input, "→", faqs['A'][result[0][0]])
 
-    return faqs['A'][result[0][0]]
+    # 대답이 일정 정확도에 못 미치는 경우
+    if result[0][1] < 0.75:
+        answer = "잘 모르겠어요. 다시 질문해주세요."
+    else:
+        answer = faqs['A'][result[0][0]]
+
+    return answer
