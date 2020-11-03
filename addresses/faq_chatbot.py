@@ -1,3 +1,8 @@
+"""
+doc2vec : 문서를 vector로 변경하는 document embedding 방식
+paragraph id(document id)를 하나의 단어(paragraph token)처럼 사용해서 문서를 훈련 데이터로 사용
+"""
+
 import os
 import warnings
 from gensim.models import doc2vec, Doc2Vec
@@ -64,7 +69,7 @@ except:
         min_alpha=0.025,  # min learning rate
         hs=1,  # hierarchical softmax
         negative=0,  # negative sample의 개수
-        dm=0,  # 0:PV-DBOW(하나를 갖고 여러개 추측), 1:PV-DM(여러개를 갖고 하나를 추측)
+        dm=0,  # 0:PV-DBOW(하나를 갖고 여러개 추측), 1:PV-DM(paragraph vector와 앞의 단어를 사용해서 다음에 나오는 단어 유추)
         # window=3,  # 훈련시 앞 뒤로 고려하는 단어의 개수
         dbow_words=1,  # 0:doc-vector만 train, 1:w2v simultaneous with DBOW d2v
         min_count=1,  # 데이터에서 등장하는 단어의 최소빈도수 - 단어의 수가 min_count 보다 작으면 사용하지 않음
